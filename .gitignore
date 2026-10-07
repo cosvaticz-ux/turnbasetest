@@ -1,0 +1,36 @@
+# Local editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+.release-validation/
+test-results/
+playwright-report/
+coverage/
+
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+exports/
+docs/blueprints/*.svg
+docs/blueprints/*.png
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx

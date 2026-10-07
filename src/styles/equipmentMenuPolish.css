@@ -1,0 +1,105 @@
+/* Item asset frames ------------------------------------------------------
+ * Every card reserves a square icon slot. weapon.png and item.png are treated
+ * as contact sheets and cropped to one cell per item/weapon definition.
+ */
+
+.lx-item-asset-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 171, 108, 0.38);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(112, 90, 53, 0.16), transparent 62%),
+    rgba(7, 8, 9, 0.8);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.52);
+}
+
+.lx-item-asset-image {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: contain;
+  object-position: center;
+  image-rendering: auto;
+  z-index: 2;
+}
+
+.lx-item-asset-crop {
+  position: absolute;
+  z-index: 2;
+  inset: 4px;
+  overflow: hidden;
+  display: block;
+  pointer-events: none;
+}
+
+.lx-item-asset-sheet {
+  position: absolute;
+  display: block;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  object-fit: fill;
+  image-rendering: auto;
+  transform: translateZ(0);
+  pointer-events: none;
+  user-select: none;
+}
+
+.lx-item-asset-fallback {
+  position: relative;
+  z-index: 1;
+  color: #d6b969;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.lx-item-asset-frame[data-has-asset="true"] .lx-item-asset-fallback {
+  opacity: 0;
+}
+
+/* Full inventory grid */
+.lx-gear-full-inventory-item .lx-inventory-asset-frame {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1px;
+}
+
+/* Compatible equipment cards */
+.lx-gear-equipment-pane .map-equipment-option {
+  grid-template-columns: 1fr;
+}
+
+.lx-gear-equipment-pane .map-equipment-option .lx-equipment-option-asset-frame {
+  width: 52px;
+  height: 52px;
+}
+
+/* Equipped slots around the character */
+.lx-gear-center .map-equipment-slot .lx-equipment-slot-asset-frame {
+  width: 48px;
+  height: 48px;
+}
+
+.lx-gear-center .map-equipment-slot {
+  grid-template-columns: 48px minmax(0, 1fr);
+}
+
+@media (max-width: 1180px) {
+  .lx-item-asset-frame,
+  .lx-gear-full-inventory-item .lx-inventory-asset-frame,
+  .lx-gear-equipment-pane .map-equipment-option .lx-equipment-option-asset-frame,
+  .lx-gear-center .map-equipment-slot .lx-equipment-slot-asset-frame {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lx-gear-center .map-equipment-slot {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+}

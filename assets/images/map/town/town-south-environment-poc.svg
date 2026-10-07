@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1850" height="1150" viewBox="-850 -150 1850 1150" role="img" aria-labelledby="title desc">
+  <title id="title">Town Part 1 South District environment proof of concept</title>
+  <desc id="desc">A single illustrated medieval town image authored in Litania X projected ground coordinates.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#354047"/><stop offset="1" stop-color="#a99b7b"/></linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5e6253"/><stop offset="1" stop-color="#343a33"/></linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b4aa91"/><stop offset="1" stop-color="#716b5e"/></linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#714838"/><stop offset="1" stop-color="#3c2928"/></linearGradient>
+    <pattern id="cobbles" width="38" height="20" patternUnits="userSpaceOnUse">
+      <rect width="38" height="20" fill="#777469"/><path d="M0 1h38M0 19h38M9 1v8m19-8v8M0 10h38M18 10v9" fill="none" stroke="#4f504a" stroke-width="1.3" opacity=".58"/>
+    </pattern>
+    <filter id="paper"><feTurbulence baseFrequency=".55" numOctaves="2" seed="7" type="fractalNoise" result="n"/><feBlend in="SourceGraphic" in2="n" mode="soft-light"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="11" stdDeviation="9" flood-color="#111" flood-opacity=".55"/></filter>
+  </defs>
+
+  <rect x="-850" y="-150" width="1850" height="1150" fill="url(#sky)"/>
+  <path d="M-850 145L-730 80-620 128-500 42-380 104-260 26-120 109 30 37 170 117 315 19 455 103 610 40 770 126 1000 58V430H-850Z" fill="#252b2b" opacity=".72"/>
+  <path d="M-850 164L-700 118-585 154-445 97-315 160-180 91-40 168 115 105 260 171 420 89 575 167 735 111 1000 184V470H-850Z" fill="#3a403b" opacity=".82"/>
+  <path d="M-850 175C-490 115 84 167 1000 300V1000H-850Z" fill="url(#ground)"/>
+
+  <!-- These five painted street shapes share the exact points used by walkablePolygons. -->
+  <g id="projected-walkable-streets" stroke="#b1aa94" stroke-width="3" stroke-linejoin="round" filter="url(#paper)">
+    <polygon points="-295.2,198 -43.2,324 -144,374.4 -396,248.4" fill="url(#cobbles)"/>
+    <polygon points="7.2,241.2 640.8,514.8 360,727.2 -352.8,435.6" fill="url(#cobbles)"/>
+    <polygon points="165.6,291.6 568.8,493.2 129.6,712.8 -273.6,511.2" fill="url(#cobbles)"/>
+    <polygon points="496.8,558 777.6,698.4 619.2,777.6 338.4,637.2" fill="url(#cobbles)"/>
+    <polygon points="-194.4,471.6 72,597.6 -50.4,752.4 -345.6,604.8" fill="url(#cobbles)"/>
+  </g>
+
+  <g fill="none" stroke="#dad1b8" stroke-width="2" opacity=".24">
+    <path d="M-301 258L349 668M-216 299L434 709M-131 339L519 748M76 311L465 550M-121 493L9 737"/>
+    <path d="M-340 230L-102 349M23 264L615 519M182 316L522 486M357 626L725 714"/>
+  </g>
+
+  <!-- Buildings and city walls are painted from the same projected structural footprints. -->
+  <g id="town-structures" stroke="#272426" stroke-width="4" stroke-linejoin="round" filter="url(#shadow)">
+    <g id="north-shop">
+      <polygon points="64.8,248.4 252,342 252,207 64.8,113.4" fill="url(#wall)"/><polygon points="399.6,268.2 252,342 252,207 399.6,133.2" fill="#63584e"/><polygon points="212.4,39.6 399.6,133.2 252,207 64.8,113.4" fill="url(#roof)"/>
+      <path d="M109 135v88m52-62v88m39-67v88" stroke="#4a3c34" stroke-width="6"/><rect x="125" y="183" width="45" height="55" rx="3" fill="#332b29"/>
+    </g>
+    <g id="north-house">
+      <polygon points="327.6,354.6 536.4,459 536.4,309 327.6,204.6" fill="#a59a82"/><polygon points="669.6,392.4 536.4,459 536.4,309 669.6,242.4" fill="#5d554d"/><polygon points="460.8,138 669.6,242.4 536.4,309 327.6,204.6" fill="#513433"/>
+      <path d="M383 233v108m72-72v108m56-77v108" stroke="#493b34" stroke-width="7"/><path d="M360 279l45 22v-50l-45-22zM463 331l43 22v-49l-43-22z" fill="#70808a" stroke="#302e2d" stroke-width="3"/>
+    </g>
+    <g id="east-house">
+      <polygon points="536.4,567 702,649.8 702,529.8 536.4,447" fill="#9e927a"/><polygon points="853.2,574.2 702,649.8 702,529.8 853.2,454.2" fill="#57524b"/><polygon points="687.6,371.4 853.2,454.2 702,529.8 536.4,447" fill="#493231"/>
+      <path d="M586 472v100m59-70v100m109-89v95" stroke="#403832" stroke-width="7"/>
+    </g>
+    <g id="south-shop">
+      <polygon points="-532.8,504 -360,590.4 -360,475.4 -532.8,389" fill="#a69b82"/><polygon points="-219.6,520.2 -360,590.4 -360,475.4 -219.6,405.2" fill="#61564b"/><polygon points="-392.4,318.8 -219.6,405.2 -360,475.4 -532.8,389" fill="#644036"/>
+      <path d="M-493 410l31 16v78l-31-16zM-425 444l35 18v70l-35-18z" fill="#667c82" stroke="#342f2d" stroke-width="3"/>
+      <path d="M-472 392v105m72-69v105" stroke="#493b34" stroke-width="7"/>
+    </g>
+    <g id="south-house">
+      <polygon points="36,730.8 223.2,824.4 223.2,689.4 36,595.8" fill="#a39780"/><polygon points="388.8,741.6 223.2,824.4 223.2,689.4 388.8,606.6" fill="#5a5149"/><polygon points="201.6,513 388.8,606.6 223.2,689.4 36,595.8" fill="#4b3330"/>
+      <path d="M82 619v100m67-67v100m58-71v100" stroke="#463a33" stroke-width="7"/>
+    </g>
+
+    <g id="west-gate">
+      <polygon points="-316.8,176.4 -208.8,230.4 -208.8,40.4 -316.8,-13.6" fill="#898477"/><polygon points="-79.2,165.6 -208.8,230.4 -208.8,40.4 -79.2,-24.4" fill="#5f5d58"/><polygon points="-187.2,-78.4 -79.2,-24.4 -208.8,40.4 -316.8,-13.6" fill="#6e665d"/>
+      <polygon points="-568.8,302.4 -460.8,356.4 -460.8,166.4 -568.8,112.4" fill="#858174"/><polygon points="-331.2,291.6 -460.8,356.4 -460.8,166.4 -331.2,101.6" fill="#5b5954"/><polygon points="-439.2,47.6 -331.2,101.6 -460.8,166.4 -568.8,112.4" fill="#6a635a"/>
+      <polygon points="-439.2,92.6 -316.8,31.4 -208.8,85.4 -331.2,146.6" fill="#777064"/>
+      <path d="M-320 91Q-272 46-222 96v107l-98-49z" fill="#15191a" stroke="#2b2928"/>
+      <path d="M-278 79v98m-22-86v75m44-64v85" stroke="#796648" stroke-width="6"/>
+    </g>
+  </g>
+
+  <g opacity=".72" fill="#706647" stroke="#282824" stroke-width="2">
+    <ellipse cx="-105" cy="543" rx="34" ry="15"/><path d="M-129 540v-41h48v41"/><ellipse cx="-105" cy="500" rx="24" ry="9"/>
+    <path d="M405 594l54 26-35 17-55-26zM426 568l48 23-29 15-49-24z"/>
+  </g>
+  <g fill="#70705b" opacity=".78"><circle cx="-46" cy="620" r="5"/><circle cx="286" cy="604" r="7"/><circle cx="558" cy="666" r="5"/><circle cx="-250" cy="387" r="6"/></g>
+  <rect x="-850" y="-150" width="1850" height="1150" fill="transparent" filter="url(#paper)" opacity=".16"/>
+</svg>

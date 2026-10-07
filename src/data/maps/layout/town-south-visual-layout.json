@@ -1,0 +1,368 @@
+{
+  "editorVersion": 2,
+  "mapId": "town-south",
+  "dimensions": {
+    "width": 1536,
+    "height": 1280,
+    "gameplayCellSize": 64,
+    "paintCellSize": 32
+  },
+  "baseGround": "grass",
+  "groundCells": [],
+  "surfaces": [
+    {
+      "id": "main-road-underlay",
+      "groundId": "dirt",
+      "x": 681,
+      "y": -36,
+      "width": 174,
+      "height": 1345,
+      "rotation": -0.25,
+      "opacity": 0.38,
+      "borderRadius": "32px 26px 38px 30px / 28px 34px 26px 36px",
+      "clipPath": "polygon(8% 0,93% 0,100% 9%,96% 100%,7% 100%,0 92%)"
+    },
+    {
+      "id": "upper-street-underlay",
+      "groundId": "dirt",
+      "x": 126,
+      "y": 276,
+      "width": 1286,
+      "height": 142,
+      "rotation": 0.35,
+      "opacity": 0.36,
+      "borderRadius": "28px 34px 24px 32px / 32px 24px 36px 28px",
+      "clipPath": "polygon(0 16%,5% 2%,96% 5%,100% 21%,98% 84%,93% 98%,5% 96%,0 80%)"
+    },
+    {
+      "id": "market-street-underlay",
+      "groundId": "dirt",
+      "x": 250,
+      "y": 724,
+      "width": 1090,
+      "height": 126,
+      "rotation": -0.35,
+      "opacity": 0.35,
+      "borderRadius": "32px 26px 34px 28px / 28px 34px 26px 32px",
+      "clipPath": "polygon(1% 12%,7% 1%,95% 6%,100% 22%,98% 86%,92% 99%,6% 94%,0 80%)"
+    },
+    {
+      "id": "central-plaza-underlay",
+      "groundId": "dirt",
+      "x": 603,
+      "y": 448,
+      "width": 334,
+      "height": 272,
+      "rotation": 0.15,
+      "opacity": 0.34,
+      "borderRadius": "30% 24% 28% 26% / 26% 31% 24% 29%"
+    },
+    {
+      "id": "south-gate-underlay",
+      "groundId": "dirt",
+      "x": 624,
+      "y": 1028,
+      "width": 290,
+      "height": 278,
+      "rotation": 0.1,
+      "opacity": 0.38,
+      "borderRadius": "34px 26px 14px 16px / 30px 34px 10px 12px",
+      "clipPath": "polygon(8% 0,92% 0,100% 18%,97% 100%,3% 100%,0 18%)"
+    },
+    {
+      "id": "main-road",
+      "groundId": "stone",
+      "x": 700,
+      "y": -42,
+      "width": 142,
+      "height": 1354,
+      "rotation": -0.25,
+      "opacity": 0.97,
+      "borderRadius": "24px 20px 28px 22px / 22px 28px 20px 30px",
+      "clipPath": "polygon(8% 0,92% 0,100% 10%,96% 100%,8% 100%,0 90%)"
+    },
+    {
+      "id": "upper-street",
+      "groundId": "stone",
+      "x": 145,
+      "y": 292,
+      "width": 1248,
+      "height": 108,
+      "rotation": 0.35,
+      "opacity": 0.97,
+      "borderRadius": "22px 26px 20px 24px / 24px 20px 28px 22px",
+      "clipPath": "polygon(0 18%,5% 3%,96% 6%,100% 23%,98% 82%,93% 97%,5% 95%,0 78%)"
+    },
+    {
+      "id": "market-street",
+      "groundId": "stone",
+      "x": 272,
+      "y": 740,
+      "width": 1048,
+      "height": 92,
+      "rotation": -0.35,
+      "opacity": 0.96,
+      "borderRadius": "24px 20px 26px 22px / 22px 26px 20px 24px",
+      "clipPath": "polygon(1% 14%,7% 2%,95% 7%,100% 24%,98% 84%,92% 98%,6% 93%,0 78%)"
+    },
+    {
+      "id": "central-plaza",
+      "groundId": "stone",
+      "x": 628,
+      "y": 470,
+      "width": 284,
+      "height": 224,
+      "rotation": 0.15,
+      "opacity": 0.96,
+      "borderRadius": "29% 23% 27% 25% / 25% 30% 23% 28%"
+    },
+    {
+      "id": "south-gate-apron",
+      "groundId": "stone",
+      "x": 648,
+      "y": 1048,
+      "width": 244,
+      "height": 258,
+      "rotation": 0.1,
+      "opacity": 0.97,
+      "borderRadius": "28px 22px 10px 12px / 26px 28px 8px 10px",
+      "clipPath": "polygon(8% 0,92% 0,100% 19%,97% 100%,3% 100%,0 19%)"
+    }
+  ],
+  "assets": [
+    {
+      "id": "general-shop-free-001",
+      "assetId": "town-shop",
+      "x": 225,
+      "y": 432,
+      "scale": 0.17,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "upper-west-home-free-002",
+      "assetId": "town-home",
+      "x": 430,
+      "y": 438,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "potion-shop-free-003",
+      "assetId": "town-potion",
+      "x": 1110,
+      "y": 438,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "upper-east-home-free-004",
+      "assetId": "town-home",
+      "x": 1320,
+      "y": 426,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "mid-west-home-free-005",
+      "assetId": "town-home",
+      "x": 230,
+      "y": 805,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "mid-west-inner-home-free-006",
+      "assetId": "town-home",
+      "x": 445,
+      "y": 852,
+      "scale": 0.17,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "market-stall-free-007",
+      "assetId": "town-market",
+      "x": 1115,
+      "y": 748,
+      "scale": 0.13,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "weapon-shop-free-008",
+      "assetId": "town-weapon",
+      "x": 1320,
+      "y": 810,
+      "scale": 0.17,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "lower-west-home-free-009",
+      "assetId": "town-home",
+      "x": 230,
+      "y": 1100,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "lower-east-home-free-010",
+      "assetId": "town-home",
+      "x": 1275,
+      "y": 1098,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "shop-barrel-free-011",
+      "assetId": "town-barrel",
+      "x": 326,
+      "y": 445,
+      "scale": 0.07,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "market-barrel-free-012",
+      "assetId": "town-barrel",
+      "x": 1140,
+      "y": 756,
+      "scale": 0.07,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "market-barrel-small-free-013",
+      "assetId": "town-barrel",
+      "x": 1190,
+      "y": 770,
+      "scale": 0.065,
+      "rotation": 0,
+      "flip": -1
+    },
+    {
+      "id": "west-wall-free-014",
+      "assetId": "town-wall-y",
+      "x": 78,
+      "y": 300,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "east-wall-free-015",
+      "assetId": "town-wall-y",
+      "x": 1458,
+      "y": 300,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": -1
+    },
+    {
+      "id": "west-wall-free-016",
+      "assetId": "town-wall-y",
+      "x": 78,
+      "y": 585,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "east-wall-free-017",
+      "assetId": "town-wall-y",
+      "x": 1458,
+      "y": 585,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": -1
+    },
+    {
+      "id": "west-wall-free-018",
+      "assetId": "town-wall-y",
+      "x": 78,
+      "y": 865,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "east-wall-free-019",
+      "assetId": "town-wall-y",
+      "x": 1458,
+      "y": 865,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": -1
+    },
+    {
+      "id": "west-wall-free-020",
+      "assetId": "town-wall-y",
+      "x": 78,
+      "y": 1145,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "east-wall-free-021",
+      "assetId": "town-wall-y",
+      "x": 1458,
+      "y": 1145,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": -1
+    },
+    {
+      "id": "south-wall-free-022",
+      "assetId": "town-wall-x",
+      "x": 220,
+      "y": 1218,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "south-wall-free-023",
+      "assetId": "town-wall-x",
+      "x": 430,
+      "y": 1218,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "south-wall-free-024",
+      "assetId": "town-wall-x",
+      "x": 1106,
+      "y": 1218,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "south-wall-free-025",
+      "assetId": "town-wall-x",
+      "x": 1315,
+      "y": 1218,
+      "scale": 0.18,
+      "rotation": 0,
+      "flip": 1
+    },
+    {
+      "id": "south-gate-free-026",
+      "assetId": "town-gate",
+      "x": 768,
+      "y": 1266,
+      "scale": 0.19,
+      "rotation": 0,
+      "flip": 1
+    }
+  ]
+}

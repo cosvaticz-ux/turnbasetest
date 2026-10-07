@@ -1,0 +1,76 @@
+.placeholder-actor {
+  --placeholder-scale: 1;
+  --placeholder-facing: 1;
+  --placeholder-body: #55565a;
+  --placeholder-accent: #74767a;
+  --placeholder-outline: #25262a;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--placeholder-body);
+  transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale));
+  transform-origin: 50% 100%;
+  pointer-events: none;
+}
+.placeholder-part { position: absolute; box-sizing: border-box; border: 2px solid var(--placeholder-outline); background: var(--placeholder-body); transform-origin: 50% 10%; }
+.placeholder-actor[data-animation-state="idle"] { animation: placeholder-breathe 1.8s ease-in-out infinite; }
+.placeholder-actor[data-animation-state="walk"], .placeholder-actor[data-animation-state="move"] { animation: placeholder-walk .48s ease-in-out infinite; }
+.placeholder-actor[data-animation-state="attack"] { animation: placeholder-attack .36s ease-out both; }
+.placeholder-actor[data-animation-state="hit"] { animation: placeholder-hit .28s ease-out both; }
+.placeholder-actor[data-animation-state="guard"] { animation: placeholder-guard .7s ease-in-out infinite alternate; }
+.placeholder-actor[data-animation-state="death"] { animation: placeholder-death .48s ease-in both; }
+@keyframes placeholder-breathe { 50% { transform: scaleX(var(--placeholder-facing)) scale(calc(var(--placeholder-scale) * 1.015)) translateY(-1%); } }
+@keyframes placeholder-walk { 25% { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateY(-3%); } 75% { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateY(1%); } }
+@keyframes placeholder-attack { 45% { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateX(12%); } }
+@keyframes placeholder-hit { 35% { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateX(-9%) rotate(-3deg); opacity: .68; } }
+@keyframes placeholder-guard { to { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateY(-2%) scale(.98, 1.02); } }
+@keyframes placeholder-death { to { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateY(15%) rotate(76deg); opacity: .62; } }
+
+.placeholder-family-humanoid .placeholder-head { width: 22%; height: 18%; left: 39%; top: 8%; border-radius: 45% 45% 38% 38%; }
+.placeholder-family-humanoid .placeholder-torso { width: 34%; height: 34%; left: 33%; top: 27%; border-radius: 35% 35% 18% 18%; }
+.placeholder-family-humanoid .placeholder-pelvis { width: 30%; height: 14%; left: 35%; top: 57%; border-radius: 35%; }
+.placeholder-family-humanoid .placeholder-arm, .placeholder-family-humanoid .placeholder-forearm { width: 10%; height: 27%; top: 31%; border-radius: 999px; }
+.placeholder-family-humanoid .placeholder-arm.is-left { left: 23%; transform: rotate(7deg); } .placeholder-family-humanoid .placeholder-arm.is-right { right: 23%; transform: rotate(-7deg); }
+.placeholder-family-humanoid .placeholder-forearm { top: 50%; } .placeholder-family-humanoid .placeholder-forearm.is-left { left: 20%; } .placeholder-family-humanoid .placeholder-forearm.is-right { right: 20%; }
+.placeholder-family-humanoid .placeholder-thigh, .placeholder-family-humanoid .placeholder-shin { width: 13%; height: 26%; border-radius: 999px; }
+.placeholder-family-humanoid .placeholder-thigh { top: 66%; } .placeholder-family-humanoid .placeholder-shin { top: 82%; height: 17%; }
+.placeholder-family-humanoid .is-left.placeholder-thigh, .placeholder-family-humanoid .is-left.placeholder-shin { left: 35%; } .placeholder-family-humanoid .is-right.placeholder-thigh, .placeholder-family-humanoid .is-right.placeholder-shin { right: 35%; }
+.placeholder-family-humanoid .placeholder-foot { width: 18%; height: 7%; bottom: 0; border-radius: 999px; } .placeholder-family-humanoid .placeholder-foot.is-left { left: 29%; } .placeholder-family-humanoid .placeholder-foot.is-right { right: 29%; }
+.placeholder-variant-heavy, .placeholder-variant-armored { --placeholder-body: #5f6063; } .placeholder-family-humanoid.placeholder-variant-heavy .placeholder-torso, .placeholder-family-humanoid.placeholder-variant-armored .placeholder-torso { width: 44%; left: 28%; }
+.placeholder-family-humanoid.placeholder-variant-thin .placeholder-torso { width: 26%; left: 37%; }
+.placeholder-family-humanoid.placeholder-variant-hunched .placeholder-head { top: 17%; left: 46%; } .placeholder-family-humanoid.placeholder-variant-hunched .placeholder-torso { transform: rotate(12deg); }
+
+.placeholder-family-quadruped .placeholder-torso { width: 56%; height: 30%; left: 23%; top: 40%; border-radius: 48%; }
+.placeholder-family-quadruped .placeholder-neck { width: 20%; height: 28%; right: 16%; top: 33%; border-radius: 45%; transform: rotate(-28deg); }
+.placeholder-family-quadruped .placeholder-head { width: 27%; height: 25%; right: 2%; top: 25%; border-radius: 45%; }
+.placeholder-family-quadruped .placeholder-snout { width: 20%; height: 12%; right: -8%; top: 40%; border-radius: 45%; }
+.placeholder-family-quadruped .placeholder-ear { width: 9%; height: 15%; top: 17%; clip-path: polygon(50% 0,100% 100%,0 100%); }
+.placeholder-family-quadruped .placeholder-ear.is-left { right: 19%; } .placeholder-family-quadruped .placeholder-ear.is-right { right: 7%; }
+.placeholder-family-quadruped .placeholder-leg { width: 10%; height: 40%; top: 61%; border-radius: 999px; }
+.placeholder-family-quadruped .placeholder-leg.is-front-left { right: 22%; } .placeholder-family-quadruped .placeholder-leg.is-front-right { right: 32%; } .placeholder-family-quadruped .placeholder-leg.is-rear-left { left: 25%; } .placeholder-family-quadruped .placeholder-leg.is-rear-right { left: 35%; }
+.placeholder-family-quadruped .placeholder-tail { width: 38%; height: 9%; left: -8%; top: 40%; border-radius: 999px; transform: rotate(-18deg); transform-origin: 100% 50%; }
+.placeholder-family-quadruped.placeholder-variant-boar .placeholder-torso { width: 62%; height: 39%; top: 34%; left: 19%; } .placeholder-family-quadruped.placeholder-variant-boar .placeholder-leg { height: 29%; top: 70%; } .placeholder-family-quadruped.placeholder-variant-boar .placeholder-head { width: 32%; height: 31%; top: 33%; } .placeholder-family-quadruped.placeholder-variant-boar .placeholder-tail { width: 17%; }
+
+.placeholder-family-blob .placeholder-body { width: 68%; height: 58%; left: 16%; bottom: 3%; border-radius: 52% 48% 30% 32%; }
+.placeholder-family-blob .placeholder-eye { width: 8%; height: 10%; top: 52%; border-radius: 50%; background: var(--placeholder-outline); } .placeholder-family-blob .placeholder-eye.is-left { left: 39%; } .placeholder-family-blob .placeholder-eye.is-right { right: 39%; }
+.placeholder-family-blob[data-animation-state="idle"] { animation-name: placeholder-blob; } @keyframes placeholder-blob { 50% { transform: scaleX(var(--placeholder-facing)) scale(calc(var(--placeholder-scale) * 1.05), calc(var(--placeholder-scale) * .94)); } }
+
+.placeholder-family-spirit { --placeholder-body: rgba(104,111,121,.75); }
+.placeholder-family-spirit .placeholder-body { width: 54%; height: 68%; left: 23%; top: 17%; border-radius: 48% 48% 24% 24%; clip-path: polygon(0 0,100% 0,91% 100%,70% 87%,50% 100%,30% 87%,9% 100%); }
+.placeholder-family-spirit .placeholder-face { width: 20%; height: 12%; left: 40%; top: 33%; border-radius: 50%; background: var(--placeholder-outline); }
+.placeholder-family-spirit .placeholder-wisp { width: 18%; height: 35%; top: 55%; border-radius: 50%; opacity: .55; } .placeholder-family-spirit .placeholder-wisp.is-left { left: 12%; transform: rotate(18deg); } .placeholder-family-spirit .placeholder-wisp.is-right { right: 12%; transform: rotate(-18deg); }
+.placeholder-family-spirit[data-animation-state="idle"] { animation-name: placeholder-float; } @keyframes placeholder-float { 50% { transform: scaleX(var(--placeholder-facing)) scale(var(--placeholder-scale)) translateY(-5%); opacity: .78; } }
+
+.placeholder-family-construct { --placeholder-body: #4f504a; --placeholder-accent: #686858; }
+.placeholder-family-construct .placeholder-trunk { width: 36%; height: 57%; left: 32%; top: 31%; border-radius: 35% 22% 18% 30%; }
+.placeholder-family-construct .placeholder-head { width: 33%; height: 25%; left: 37%; top: 15%; border-radius: 45% 30%; }
+.placeholder-family-construct .placeholder-branch { width: 12%; height: 48%; top: 35%; border-radius: 999px; } .placeholder-family-construct .placeholder-branch.is-left { left: 23%; transform: rotate(28deg); } .placeholder-family-construct .placeholder-branch.is-right { right: 20%; transform: rotate(-35deg); }
+.placeholder-family-construct .placeholder-root { width: 13%; height: 32%; top: 72%; border-radius: 999px; } .placeholder-family-construct .placeholder-root.is-left { left: 35%; transform: rotate(9deg); } .placeholder-family-construct .placeholder-root.is-right { right: 31%; transform: rotate(-16deg); }
+.placeholder-family-construct .placeholder-crown { width: 48%; height: 20%; left: 26%; top: 4%; clip-path: polygon(8% 100%,0 28%,27% 61%,39% 0,55% 58%,82% 10%,100% 100%); background: var(--placeholder-accent); }
+
+.battle-placeholder { position: relative; z-index: 2; width: 100%; height: 100%; }
+.map-placeholder { position: absolute; z-index: 2; left: 50%; bottom: -3px; width: 70px; height: 94px; translate: -50% 0; }
+.map-world-actor .map-placeholder { bottom: 18px; }
+.map-player .map-placeholder { bottom: 0; }
+@media (prefers-reduced-motion: reduce) { .placeholder-actor { animation: none !important; } }

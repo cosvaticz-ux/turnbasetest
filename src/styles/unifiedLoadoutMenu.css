@@ -1,0 +1,213 @@
+/* Unified B-menu controls -------------------------------------------------------- */
+
+.lx-gear-nav[data-lx-unified="true"] {
+  display: grid;
+  place-items: stretch;
+}
+
+.lx-gear-unified-nav-label {
+  display: grid;
+  place-items: center;
+  min-width: 330px;
+  padding: 0 24px;
+  border-left: 1px solid rgba(181, 154, 103, 0.16);
+  border-right: 1px solid rgba(181, 154, 103, 0.16);
+  background: linear-gradient(180deg, rgba(95, 76, 47, 0.28), transparent 82%);
+  box-shadow: inset 0 -2px 0 #d1b06b;
+  color: #f3e6c9;
+  font: 600 12px/1 var(--font-ui);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.map-equipment.lx-gear-menu .lx-gear-equipment-pane[hidden] {
+  display: none !important;
+}
+
+.map-equipment.lx-gear-menu .lx-gear-full-inventory {
+  display: flex;
+}
+
+.map-equipment.lx-gear-menu > footer[data-lx-unified-controls="true"] > * {
+  visibility: hidden;
+}
+
+.map-equipment.lx-gear-menu > footer[data-lx-unified-controls="true"]::before {
+  content: "ARROWS Navigate · TAB Next · SHIFT+TAB Back · SPACE Item Actions · ENTER Confirm · B Close";
+  align-self: center;
+  color: #a89d88;
+  font: 600 10px/1 var(--font-ui);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* One current point only --------------------------------------------------------- */
+
+/*
+ * IMPORTANT: never change position here. Equipment slots are absolutely positioned
+ * by equipmentMenu.css. Setting position: relative on the current point made an
+ * active slot jump into normal document flow and overlap the weapon/status area.
+ */
+.map-equipment.lx-gear-menu .lx-current-point {
+  outline: 2px solid rgba(255, 221, 133, 0.98) !important;
+  outline-offset: -2px;
+  border-color: rgba(230, 192, 104, 0.95) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 238, 183, 0.16),
+    0 0 18px rgba(214, 168, 72, 0.3) !important;
+}
+
+/* Persistent game state (selected party/slot/item/filter) must not look like the
+ * keyboard cursor. The current point above is the only bright selection on screen. */
+.map-equipment.lx-gear-menu .map-equipment-party-tab[data-selected="true"]:not(.lx-current-point) {
+  border-color: rgba(181, 154, 103, 0.22);
+  background: rgba(23, 23, 22, 0.72);
+  color: #c8bfaf;
+  box-shadow: none;
+}
+
+.map-equipment.lx-gear-menu .map-equipment-slot[data-selected="true"]:not(.lx-current-point) {
+  border-color: rgba(181, 154, 103, 0.36);
+  background: rgba(10, 11, 12, 0.72);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.3);
+}
+
+.map-equipment.lx-gear-menu .lx-gear-full-inventory-item[data-selected="true"]:not(.lx-current-point),
+.map-equipment.lx-gear-menu .lx-gear-full-inventory-item:hover:not(.lx-current-point) {
+  border-color: rgba(181, 154, 103, 0.34);
+  background: rgba(20, 20, 19, 0.78);
+  box-shadow: none;
+}
+
+.map-equipment.lx-gear-menu .lx-gear-inventory-filters button[data-selected="true"]:not(.lx-current-point) {
+  border-color: rgba(181, 154, 103, 0.28);
+  background: rgba(28, 26, 22, 0.74);
+  color: #cbbd9d;
+  box-shadow: none;
+}
+
+/* Browser focus is represented by lx-current-point, so do not draw a second ring. */
+.map-equipment.lx-gear-menu :focus-visible:not(.lx-current-point) {
+  outline: none;
+}
+
+/* Fixed item information area --------------------------------------------------- */
+
+.lx-gear-inline-status {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(181, 154, 103, 0.2);
+}
+
+.lx-gear-inline-status:empty {
+  display: none;
+}
+
+.lx-gear-inline-status span {
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid rgba(181, 154, 103, 0.17);
+  background: rgba(15, 15, 14, 0.66);
+  color: #cdb887;
+  font: 600 9px/1.3 var(--font-ui);
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+/* Floating hover cards are retired. Details now stay in the right-side panel. */
+.lx-item-hover-tooltip {
+  display: none !important;
+}
+
+/* Inspect panel ------------------------------------------------------------------ */
+
+.lx-item-inspector-overlay {
+  position: fixed;
+  z-index: 340;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.lx-item-inspector-overlay[hidden] { display: none !important; }
+
+.lx-item-inspector {
+  width: min(520px, calc(100vw - 34px));
+  max-height: min(620px, calc(100vh - 34px));
+  overflow-y: auto;
+  padding: 18px 20px 20px;
+  border: 1px solid rgba(211, 179, 112, 0.58);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(101, 77, 43, 0.15), transparent 42%),
+    linear-gradient(180deg, rgba(20, 19, 17, 0.99), rgba(7, 8, 9, 0.99));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.84), inset 0 0 36px rgba(178, 137, 68, 0.05);
+  color: #eee2c9;
+}
+
+.lx-item-inspector > header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "kicker close"
+    "name close";
+  align-items: center;
+  gap: 4px 18px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(181, 154, 103, 0.22);
+}
+
+.lx-item-inspector > header > span {
+  grid-area: kicker;
+  color: #9c8c6d;
+  font: 700 9px/1 var(--font-ui);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.lx-item-inspector h3 {
+  grid-area: name;
+  margin: 0;
+  color: #f0e0bd;
+  font: 700 28px/1.1 Georgia, serif;
+}
+
+.lx-item-inspector > header > button {
+  grid-area: close;
+  padding: 8px 11px;
+  border: 1px solid #756341;
+  background: rgba(31, 29, 25, 0.86);
+  color: #ddd1b9;
+  cursor: pointer;
+}
+
+.lx-item-inspector > p {
+  margin: 16px 0;
+  color: #c2b7a4;
+  font: 14px/1.55 Georgia, serif;
+}
+
+.lx-item-inspector-status {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.lx-item-inspector-status span {
+  padding: 9px 10px;
+  border: 1px solid rgba(181, 154, 103, 0.2);
+  background: rgba(18, 18, 17, 0.72);
+  color: #d3be8e;
+  font: 600 10px/1.3 var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .lx-gear-unified-nav-label { min-width: 0; padding-inline: 12px; font-size: 10px; }
+  .lx-gear-inline-status { grid-template-columns: 1fr; }
+  .lx-item-inspector-status { grid-template-columns: 1fr; }
+}

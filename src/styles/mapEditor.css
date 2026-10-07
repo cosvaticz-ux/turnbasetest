@@ -1,0 +1,490 @@
+#map-editor-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr);
+  background: #0d0f0d;
+  color: #ece7da;
+  font-family: var(--font-ui, Arial, sans-serif);
+}
+
+#map-editor-screen[hidden] {
+  display: none;
+}
+
+.map-editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(232, 224, 206, 0.18);
+  background: #171916;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.28);
+  z-index: 30;
+}
+
+.map-editor-toolbar strong {
+  margin-right: 6px;
+  font-family: var(--font-display, Georgia, serif);
+  letter-spacing: 0.06em;
+}
+
+.map-editor-toolbar button,
+.map-editor-toolbar select,
+.map-editor-toolbar input[type="number"] {
+  min-height: 34px;
+  border: 1px solid rgba(225, 217, 197, 0.24);
+  background: #22241f;
+  color: #eee8da;
+}
+
+.map-editor-toolbar button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.map-editor-toolbar button:hover,
+.map-editor-toolbar button.is-active {
+  border-color: #d7b465;
+  background: #393325;
+}
+
+.map-editor-toolbar button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.map-editor-tool-group {
+  display: flex;
+  gap: 4px;
+}
+
+.map-editor-toolbar-spacer {
+  flex: 1;
+}
+
+.map-editor-workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) 250px;
+}
+
+.map-editor-sidebar,
+.map-editor-inspector {
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+  background: #151713;
+}
+
+.map-editor-sidebar {
+  border-right: 1px solid rgba(232, 224, 206, 0.13);
+}
+
+.map-editor-inspector {
+  border-left: 1px solid rgba(232, 224, 206, 0.13);
+}
+
+.map-editor-section {
+  margin-bottom: 18px;
+}
+
+.map-editor-section h2,
+.map-editor-inspector h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.map-editor-section small {
+  color: #aaa494;
+}
+
+.map-editor-palette {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.map-editor-palette-item {
+  display: grid;
+  grid-template-rows: 54px auto;
+  gap: 4px;
+  min-width: 0;
+  padding: 5px;
+  border: 1px solid rgba(228, 220, 201, 0.15);
+  background: #20221e;
+  color: #ddd6c8;
+  font-size: 0.66rem;
+  cursor: pointer;
+}
+
+.map-editor-palette-item:hover,
+.map-editor-palette-item.is-selected {
+  border-color: #d4ad5e;
+  background: #342f23;
+  color: #fff5da;
+}
+
+.map-editor-palette-preview {
+  display: block;
+  min-width: 0;
+  background-color: #2a2c26;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.map-editor-center {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 34px;
+  background: #0b0c0a;
+}
+
+.map-editor-viewport {
+  min-height: 0;
+  overflow: auto;
+  padding: 26px;
+  overscroll-behavior: contain;
+}
+
+.map-editor-viewport.is-pan-ready,
+.map-editor-viewport.is-pan-ready .map-editor-canvas,
+.map-editor-viewport.is-pan-ready .map-editor-asset {
+  cursor: grab !important;
+}
+
+.map-editor-viewport.is-panning,
+.map-editor-viewport.is-panning .map-editor-canvas,
+.map-editor-viewport.is-panning .map-editor-asset {
+  cursor: grabbing !important;
+}
+
+.map-editor-viewport.is-panning {
+  scroll-behavior: auto;
+}
+
+.map-editor-canvas-shell {
+  position: relative;
+  margin: 0 auto;
+}
+
+.map-editor-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background: #5f644e;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 18px 50px rgba(0, 0, 0, 0.42);
+  touch-action: none;
+  user-select: none;
+}
+
+.map-editor-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.map-editor-base-layer {
+  z-index: 0;
+  background-repeat: repeat;
+  background-size: 420px 420px;
+  filter: saturate(0.72) brightness(0.76);
+}
+
+.map-editor-ground-layer {
+  z-index: 2;
+}
+
+.map-editor-ground-cell {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.map-editor-ground-edge {
+  mix-blend-mode: multiply;
+}
+
+.map-editor-ground-mix {
+  opacity: 0.92;
+}
+
+.map-editor-mockup {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.map-editor-guide-layer {
+  z-index: 6;
+}
+
+.map-editor-guide {
+  position: absolute;
+  display: grid;
+  place-items: start;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.map-editor-guide span {
+  padding: 2px 4px;
+  background: rgba(0, 0, 0, 0.68);
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.map-editor-guide-blocked {
+  border-color: rgba(220, 85, 75, 0.75);
+  background: rgba(138, 35, 31, 0.13);
+}
+
+.map-editor-guide-footprint {
+  border-color: rgba(237, 202, 99, 0.75);
+  background: rgba(145, 112, 37, 0.12);
+}
+
+.map-editor-guide-spawn {
+  border-color: rgba(224, 211, 80, 0.78);
+}
+
+.map-editor-guide-warp {
+  border-color: rgba(76, 167, 216, 0.9);
+  background: rgba(35, 95, 132, 0.12);
+}
+
+.map-editor-guide-warp-reserved {
+  border-color: rgba(135, 135, 135, 0.75);
+}
+
+.map-editor-asset-layer {
+  z-index: 10;
+}
+
+.map-editor-asset {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.map-editor-canvas[data-active-tool="eraser"] .map-editor-asset {
+  cursor: crosshair;
+}
+
+.map-editor-asset:active {
+  cursor: grabbing;
+}
+
+.map-editor-asset img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: none;
+  transform-origin: 50% 100%;
+  pointer-events: auto;
+  cursor: inherit;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 7px 5px rgba(0, 0, 0, 0.28));
+}
+
+.map-editor-asset.is-center-anchored img {
+  transform-origin: 50% 50%;
+}
+
+.map-editor-foot-anchor {
+  position: absolute;
+  z-index: 20;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 220, 87, 0.92);
+  border-radius: 50%;
+  background: rgba(24, 21, 15, 0.34);
+  box-shadow: 0 0 0 1px rgba(20, 18, 14, 0.42);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.map-editor-asset.is-selected.has-visual-anchor .map-editor-foot-anchor {
+  opacity: 0.9;
+}
+
+/* Selection uses the per-asset handle position rather than a large ring
+ * around the transform origin, so edge placement stays visually precise. */
+.map-editor-asset.is-selected::after {
+  content: none;
+}
+
+.map-editor-grid-layer {
+  z-index: 20;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 221, 113, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 221, 113, 0.22) 1px, transparent 1px);
+  background-size:
+    32px 32px,
+    32px 32px,
+    64px 64px,
+    64px 64px;
+}
+
+.map-editor-statusbar {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-top: 1px solid rgba(232, 224, 206, 0.1);
+  background: #141612;
+  color: #aaa494;
+  font-size: 0.72rem;
+}
+
+.map-editor-control-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.map-editor-control {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 9px;
+  color: #bcb5a7;
+  font-size: 0.72rem;
+}
+
+.map-editor-control input,
+.map-editor-control select {
+  width: 100%;
+  min-height: 32px;
+  border: 1px solid rgba(230, 222, 203, 0.18);
+  background: #20221e;
+  color: #eee8da;
+}
+
+.map-editor-inline {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+  color: #c5beaf;
+  font-size: 0.74rem;
+}
+
+.map-editor-inspector-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.map-editor-direction-control {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0;
+  color: #bcb5a7;
+  font-size: 0.72rem;
+}
+
+.map-editor-direction-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.map-editor-direction-buttons button {
+  min-height: 34px;
+  border: 1px solid rgba(230, 222, 203, 0.18);
+  background: #252720;
+  color: #eee8da;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.map-editor-direction-buttons button:hover,
+.map-editor-direction-buttons button.is-active {
+  border-color: #d4ad5e;
+  background: #3a3324;
+  color: #fff1c4;
+}
+
+.map-editor-inspector-actions button,
+.map-editor-sidebar button.map-editor-wide-button {
+  min-height: 34px;
+  border: 1px solid rgba(230, 222, 203, 0.18);
+  background: #252720;
+  color: #eee8da;
+  cursor: pointer;
+}
+
+.map-editor-inspector-actions button:hover,
+.map-editor-sidebar button.map-editor-wide-button:hover {
+  border-color: #d4ad5e;
+}
+
+.map-editor-wide-button {
+  width: 100%;
+}
+
+.map-editor-selected-name {
+  margin: 0 0 12px;
+  color: #f4dc9d;
+  font-family: var(--font-display, Georgia, serif);
+}
+
+#map-editor-inspector-empty {
+  color: #8f897c;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.map-editor-danger {
+  border-color: rgba(182, 68, 61, 0.6) !important;
+  color: #f1aaa4 !important;
+}
+
+@media (max-width: 1050px) {
+  .map-editor-workspace {
+    grid-template-columns: 190px minmax(0, 1fr) 220px;
+  }
+
+  .map-editor-toolbar {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .map-editor-workspace {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+
+  .map-editor-inspector {
+    display: none;
+  }
+
+  .map-editor-palette {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Litania X - Map Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="src/styles/mapEditor.css">
+</head>
+<body class="map-editor-standalone">
+  <main id="map-editor-screen" aria-label="Litania X visual map editor" hidden>
+    <header class="map-editor-toolbar">
+      <strong>MAP EDITOR</strong>
+      <select id="map-editor-map-select" aria-label="Map node"></select>
+      <div class="map-editor-tool-group" role="group" aria-label="Editor tools">
+        <button type="button" data-map-editor-tool="select" aria-pressed="true">Select [V]</button>
+        <button type="button" data-map-editor-tool="paint" aria-pressed="false">Paint [B]</button>
+        <button type="button" data-map-editor-tool="asset" aria-pressed="false">Asset [A]</button>
+        <button type="button" data-map-editor-tool="eraser" aria-pressed="false">Eraser [E]</button>
+      </div>
+      <button id="map-editor-undo" type="button">Undo</button>
+      <button id="map-editor-redo" type="button">Redo</button>
+      <span class="map-editor-toolbar-spacer"></span>
+      <button id="map-editor-copy" type="button">Copy JSON</button>
+      <button id="map-editor-export" type="button">Export JSON</button>
+      <a class="map-blockout-exit" href="./index.html">Exit</a>
+    </header>
+
+    <section class="map-editor-workspace">
+      <aside class="map-editor-sidebar" aria-label="Map editor palette">
+        <section class="map-editor-section">
+          <h2>Ground Brush</h2>
+          <div id="map-editor-ground-palette" class="map-editor-palette"></div>
+          <small>Drag on the canvas to paint. Edge assets are brushes too.</small>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Assets</h2>
+          <div id="map-editor-asset-palette" class="map-editor-palette"></div>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Canvas</h2>
+          <label class="map-editor-control">
+            Base Ground
+            <select id="map-editor-base-ground"></select>
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-snap-toggle" type="checkbox" checked>
+            Snap
+          </label>
+          <label class="map-editor-control">
+            Snap Size (px)
+            <input id="map-editor-snap-size" type="number" min="1" max="64" step="1" value="16">
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-grid-toggle" type="checkbox" checked>
+            Grid
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-guides-toggle" type="checkbox" checked>
+            Gameplay guides
+          </label>
+          <label class="map-editor-control">
+            Zoom
+            <input id="map-editor-zoom" type="range" min="0.25" max="2" step="0.05" value="0.75">
+          </label>
+          <small>Mouse wheel: zoom · Middle mouse drag or Space + left drag: pan</small>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Mockup Overlay</h2>
+          <label class="map-editor-control">
+            Image
+            <input id="map-editor-mockup-file" type="file" accept="image/png,image/jpeg,image/webp">
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-mockup-toggle" type="checkbox" checked>
+            Show mockup
+          </label>
+          <label class="map-editor-control">
+            Opacity
+            <input id="map-editor-mockup-opacity" type="range" min="0" max="1" step="0.02" value="0.38">
+          </label>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Draft</h2>
+          <button id="map-editor-import-button" class="map-editor-wide-button" type="button">Import JSON</button>
+          <input id="map-editor-import-file" type="file" accept="application/json,.json" hidden>
+          <button id="map-editor-clear" class="map-editor-wide-button map-editor-danger" type="button">Clear Map Draft</button>
+          <small>Edits autosave in this browser. Export JSON when the layout is ready.</small>
+        </section>
+      </aside>
+
+      <section class="map-editor-center">
+        <div id="map-editor-viewport" class="map-editor-viewport">
+          <div id="map-editor-canvas-shell" class="map-editor-canvas-shell">
+            <div id="map-editor-canvas" class="map-editor-canvas" data-active-tool="select">
+              <div id="map-editor-base-layer" class="map-editor-layer map-editor-base-layer"></div>
+              <div id="map-editor-ground-layer" class="map-editor-layer map-editor-ground-layer"></div>
+              <img id="map-editor-mockup" class="map-editor-mockup" alt="" hidden>
+              <div id="map-editor-guide-layer" class="map-editor-layer map-editor-guide-layer"></div>
+              <div id="map-editor-asset-layer" class="map-editor-layer map-editor-asset-layer"></div>
+              <div id="map-editor-grid-layer" class="map-editor-layer map-editor-grid-layer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+        <footer id="map-editor-status" class="map-editor-statusbar" role="status">Map Editor ready</footer>
+      </section>
+
+      <aside class="map-editor-inspector" aria-label="Selected asset inspector">
+        <h2>Inspector</h2>
+        <p id="map-editor-inspector-empty">Select a placed asset to move, scale, rotate, flip, duplicate, or delete it.</p>
+        <div id="map-editor-inspector-fields" hidden>
+          <h3 id="map-editor-selected-name" class="map-editor-selected-name"></h3>
+          <div class="map-editor-control-grid">
+            <label class="map-editor-control">
+              X
+              <input id="map-editor-selected-x" type="number" step="1">
+            </label>
+            <label class="map-editor-control">
+              Y
+              <input id="map-editor-selected-y" type="number" step="1">
+            </label>
+          </div>
+          <label class="map-editor-control">
+            Scale <output id="map-editor-selected-scale-value">100%</output>
+            <input id="map-editor-selected-scale" type="range" min="0.05" max="2" step="0.01" value="0.5">
+          </label>
+          <label class="map-editor-control">
+            Rotation
+            <input id="map-editor-selected-rotation" type="number" min="-180" max="180" step="1" value="0">
+          </label>
+          <div class="map-editor-direction-control" aria-label="Object direction">
+            <span>Direction</span>
+            <div class="map-editor-direction-buttons">
+              <button type="button" data-map-editor-orientation="0" title="Up / 0 degrees">↑</button>
+              <button type="button" data-map-editor-orientation="90" title="Right / 90 degrees">→</button>
+              <button type="button" data-map-editor-orientation="180" title="Down / 180 degrees">↓</button>
+              <button type="button" data-map-editor-orientation="270" title="Left / 270 degrees">←</button>
+            </div>
+          </div>
+          <div class="map-editor-inspector-actions">
+            <button id="map-editor-selected-flip" type="button">Mirror</button>
+            <button id="map-editor-selected-duplicate" type="button">Duplicate</button>
+            <button id="map-editor-selected-delete" class="map-editor-danger" type="button">Delete</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script type="module" src="map-editor.js"></script>
+</body>
+</html>

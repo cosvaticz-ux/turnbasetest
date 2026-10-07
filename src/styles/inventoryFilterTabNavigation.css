@@ -1,0 +1,8 @@
+.map-equipment.lx-gear-menu > footer[data-lx-unified-controls="true"]::before {
+  content: "ARROWS Navigate · TAB Inventory Category · SHIFT+TAB Back · SPACE Item Actions · ENTER Confirm · B Close";
+}
+
+.lx-gear-inventory-filters button:focus-visible {
+  outline: 1px solid rgba(255, 222, 139, 0.95);
+  outline-offset: -2px;
+}
