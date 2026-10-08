@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turn Based RPG</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23111114'/%3E%3Cpath d='M15 12h9v31h25v9H15z' fill='%23d7bb78'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="src/styles/gameStart.css">
+  <link rel="stylesheet" href="src/styles/mapEditor.css">
+  <link rel="stylesheet" href="src/styles/placeholderActors.css">
+</head>
+<body>
+  <section id="loading-screen" class="loading-screen boot-fade-screen" aria-hidden="true"></section>
+  <section id="game-start-screen" class="game-start-screen" aria-labelledby="game-start-title" hidden>
+    <div class="game-start-panel">
+      <span class="game-start-kicker">A New Journey Begins</span>
+      <h1 id="game-start-title">LITANIA X</h1>
+      <p class="game-start-chapter">— DAY I —</p>
+      <p id="game-start-status">Loading...</p>
+      <div id="game-start-progress" class="game-start-progress" role="progressbar" aria-label="Preparing New Game" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span id="game-start-progress-fill" class="game-start-progress-fill"></span>
+      </div>
+      <output id="game-start-percentage" for="game-start-progress">0%</output>
+    </div>
+  </section>
+  <section id="title-screen" aria-labelledby="title-game-name" hidden>
+    <div id="title-background" class="title-background" aria-hidden="true"></div><div class="title-background-sketch" aria-hidden="true"></div><header class="title-studio-label">Cosvaticz Present</header><div class="title-illustration-stage" aria-hidden="true"><div id="title-illustration-placeholder" class="title-illustration-placeholder"></div><img id="title-illustration" class="title-illustration" alt="" hidden></div><div class="title-interface"><header class="title-brand"><span class="title-rule" aria-hidden="true"></span><h1 id="title-game-name">LITANIA X</h1><span class="title-rule" aria-hidden="true"></span></header><nav id="title-menu" class="title-menu" aria-label="Main menu"></nav><p id="title-menu-status" class="title-menu-status" role="status" aria-live="polite"></p></div><footer id="title-version" class="title-version">Version : Demo 1</footer><section id="settings-panel" class="settings-panel" aria-labelledby="settings-title" hidden><h2 id="settings-title">Settings</h2><label>Master Volume <output id="settings-master-output">80%</output><input id="settings-master" type="range" min="0" max="1" step="0.05"></label><label>SFX Volume <output id="settings-sfx-output">80%</output><input id="settings-sfx" type="range" min="0" max="1" step="0.05"></label><label class="settings-toggle"><input id="settings-grain" type="checkbox"> Film Grain</label><label>Screen Effects <select id="settings-effects"><option value="high">High</option><option value="low">Low</option></select></label><button id="settings-close" type="button">Done</button></section>
+  </section>
+  <main id="map-blockout-screen" aria-labelledby="map-blockout-title" hidden><header class="map-blockout-header"><div><span class="map-blockout-kicker">Development View · Four Connected Map Nodes</span><h1 id="map-blockout-title">Front Forest</h1><p id="map-blockout-role" class="map-blockout-role"></p></div><div class="map-blockout-header-tools"><nav id="map-blockout-node-tabs" class="map-blockout-node-tabs" aria-label="Preview map node"></nav><p><strong>64px Grid</strong> · Click a blue warp to preview transition · No production assets</p><output id="map-blockout-current-spawn" class="map-blockout-current-spawn"></output></div><a class="map-blockout-exit" href="./">Return to Game</a></header><section id="map-blockout-viewport" class="map-blockout-viewport" tabindex="0" aria-label="Scrollable four-node map blockout"><div id="map-blockout-canvas" class="map-blockout-canvas"><div id="map-blockout-zone-layer" class="map-blockout-layer" aria-label="Walkable and blocked zones"></div><div id="map-blockout-path-layer" class="map-blockout-layer" aria-label="Road and path markers"></div><div id="map-blockout-footprint-layer" class="map-blockout-layer" aria-label="Future structure footprints"></div><div id="map-blockout-marker-layer" class="map-blockout-layer" aria-label="Future asset and location markers"></div><div id="map-blockout-spawn-layer" class="map-blockout-layer" aria-label="Player spawn markers"></div><div id="map-blockout-warp-layer" class="map-blockout-layer" aria-label="Map transition markers"></div><div id="map-blockout-grid" class="map-blockout-grid grid-visible" aria-hidden="true"></div></div></section><aside class="map-blockout-legend" aria-label="Map marker legend"><span><i class="legend-walkable"></i>Walkable</span><span><i class="legend-blocked"></i>Blocked</span><span><i class="legend-warp"></i>Warp</span><span><i class="legend-important"></i>Important</span><span><i class="legend-footprint"></i>Future Structure</span><span><i class="legend-marker"></i>Asset Marker</span><span><i class="legend-spawn"></i>Spawn</span></aside></main>
+  <main id="map-editor-screen" aria-label="Litania X visual map editor" hidden>
+    <header class="map-editor-toolbar">
+      <strong>MAP EDITOR</strong>
+      <select id="map-editor-map-select" aria-label="Map node"></select>
+      <div class="map-editor-tool-group" role="group" aria-label="Editor tools">
+        <button type="button" data-map-editor-tool="select" aria-pressed="true">Select [V]</button>
+        <button type="button" data-map-editor-tool="paint" aria-pressed="false">Paint [B]</button>
+        <button type="button" data-map-editor-tool="asset" aria-pressed="false">Asset [A]</button>
+        <button type="button" data-map-editor-tool="eraser" aria-pressed="false">Eraser [E]</button>
+      </div>
+      <button id="map-editor-undo" type="button">Undo</button>
+      <button id="map-editor-redo" type="button">Redo</button>
+      <span class="map-editor-toolbar-spacer"></span>
+      <button id="map-editor-copy" type="button">Copy JSON</button>
+      <button id="map-editor-export" type="button">Export JSON</button>
+      <a class="map-blockout-exit" href="./">Exit</a>
+    </header>
+
+    <section class="map-editor-workspace">
+      <aside class="map-editor-sidebar" aria-label="Map editor palette">
+        <section class="map-editor-section">
+          <h2>Ground Brush</h2>
+          <div id="map-editor-ground-palette" class="map-editor-palette"></div>
+          <small>Drag on the canvas to paint. Edge assets are brushes too.</small>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Assets</h2>
+          <div id="map-editor-asset-palette" class="map-editor-palette"></div>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Canvas</h2>
+          <label class="map-editor-control">
+            Base Ground
+            <select id="map-editor-base-ground"></select>
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-snap-toggle" type="checkbox" checked>
+            Snap
+          </label>
+          <label class="map-editor-control">
+            Snap Size (px)
+            <input id="map-editor-snap-size" type="number" min="1" max="64" step="1" value="16">
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-grid-toggle" type="checkbox" checked>
+            Grid
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-guides-toggle" type="checkbox" checked>
+            Gameplay guides
+          </label>
+          <label class="map-editor-control">
+            Zoom
+            <input id="map-editor-zoom" type="range" min="0.25" max="2" step="0.05" value="0.75">
+          </label>
+          <small>Mouse wheel: zoom · Middle mouse drag or Space + left drag: pan</small>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Mockup Overlay</h2>
+          <label class="map-editor-control">
+            Image
+            <input id="map-editor-mockup-file" type="file" accept="image/png,image/jpeg,image/webp">
+          </label>
+          <label class="map-editor-inline">
+            <input id="map-editor-mockup-toggle" type="checkbox" checked>
+            Show mockup
+          </label>
+          <label class="map-editor-control">
+            Opacity
+            <input id="map-editor-mockup-opacity" type="range" min="0" max="1" step="0.02" value="0.38">
+          </label>
+        </section>
+
+        <section class="map-editor-section">
+          <h2>Draft</h2>
+          <button id="map-editor-import-button" class="map-editor-wide-button" type="button">Import JSON</button>
+          <input id="map-editor-import-file" type="file" accept="application/json,.json" hidden>
+          <button id="map-editor-clear" class="map-editor-wide-button map-editor-danger" type="button">Clear Map Draft</button>
+          <small>Edits autosave in this browser. Export JSON when the layout is ready.</small>
+        </section>
+      </aside>
+
+      <section class="map-editor-center">
+        <div id="map-editor-viewport" class="map-editor-viewport">
+          <div id="map-editor-canvas-shell" class="map-editor-canvas-shell">
+            <div id="map-editor-canvas" class="map-editor-canvas" data-active-tool="select">
+              <div id="map-editor-base-layer" class="map-editor-layer map-editor-base-layer"></div>
+              <div id="map-editor-ground-layer" class="map-editor-layer map-editor-ground-layer"></div>
+              <img id="map-editor-mockup" class="map-editor-mockup" alt="" hidden>
+              <div id="map-editor-guide-layer" class="map-editor-layer map-editor-guide-layer"></div>
+              <div id="map-editor-asset-layer" class="map-editor-layer map-editor-asset-layer"></div>
+              <div id="map-editor-grid-layer" class="map-editor-layer map-editor-grid-layer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+        <footer id="map-editor-status" class="map-editor-statusbar" role="status">Map Editor ready</footer>
+      </section>
+
+      <aside class="map-editor-inspector" aria-label="Selected asset inspector">
+        <h2>Inspector</h2>
+        <p id="map-editor-inspector-empty">Select a placed asset to move, scale, rotate, flip, duplicate, or delete it.</p>
+        <div id="map-editor-inspector-fields" hidden>
+          <h3 id="map-editor-selected-name" class="map-editor-selected-name"></h3>
+          <div class="map-editor-control-grid">
+            <label class="map-editor-control">
+              X
+              <input id="map-editor-selected-x" type="number" step="1">
+            </label>
+            <label class="map-editor-control">
+              Y
+              <input id="map-editor-selected-y" type="number" step="1">
+            </label>
+          </div>
+          <label class="map-editor-control">
+            Scale <output id="map-editor-selected-scale-value">100%</output>
+            <input id="map-editor-selected-scale" type="range" min="0.05" max="2" step="0.01" value="0.5">
+          </label>
+          <label class="map-editor-control">
+            Rotation
+            <input id="map-editor-selected-rotation" type="number" min="-180" max="180" step="1" value="0">
+          </label>
+          <div class="map-editor-direction-control" aria-label="Object direction">
+            <span>Direction</span>
+            <div class="map-editor-direction-buttons">
+              <button type="button" data-map-editor-orientation="0" title="Up / 0 degrees">↑</button>
+              <button type="button" data-map-editor-orientation="90" title="Right / 90 degrees">→</button>
+              <button type="button" data-map-editor-orientation="180" title="Down / 180 degrees">↓</button>
+              <button type="button" data-map-editor-orientation="270" title="Left / 270 degrees">←</button>
+            </div>
+          </div>
+          <div class="map-editor-inspector-actions">
+            <button id="map-editor-selected-flip" type="button">Mirror</button>
+            <button id="map-editor-selected-duplicate" type="button">Duplicate</button>
+            <button id="map-editor-selected-delete" class="map-editor-danger" type="button">Delete</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <figure id="map-dialogue-portrait-stage" class="map-dialogue-portrait-stage" aria-hidden="true" hidden><img id="map-dialogue-portrait" class="map-dialogue-portrait" alt=""></figure>
+  <section id="map-inventory" class="map-inventory" role="dialog" aria-modal="true" aria-labelledby="map-inventory-title" hidden>
+    <header><div><span>Field pack</span><h2 id="map-inventory-title">Inventory &amp; Status</h2></div><button id="map-inventory-close" type="button" aria-label="Close inventory">Close <kbd>Tab</kbd></button></header>
+    <section class="map-progression-strip" aria-label="Character progression">
+      <article class="map-progression-card">
+        <div><span>LEVEL</span><strong id="map-progression-level">Lv. 1</strong></div>
+        <small id="map-progression-exp">EXP 0 / 50</small>
+        <div class="map-progression-bar" aria-hidden="true"><i id="map-progression-exp-fill"></i></div>
+      </article>
+      <article class="map-progression-card">
+        <div><span>RANK</span><strong id="map-progression-rank">Rank F</strong></div>
+        <small id="map-progression-rank-progress">0 / 10 to Rank E</small>
+        <div class="map-progression-bar" aria-hidden="true"><i id="map-progression-rank-fill"></i></div>
+      </article>
+    </section>
+    <nav id="map-inventory-tabs" class="map-inventory-tabs" aria-label="Inventory categories">
+      <button type="button" data-inventory-type="equipment">Equipment</button>
+      <button type="button" data-inventory-type="usable" data-selected="true">Usable Items</button>
+      <button type="button" data-inventory-type="etc">ETC</button>
+    </nav>
+    <div class="map-inventory-layout"><div id="map-inventory-list" class="map-inventory-list" role="listbox" aria-label="Items"></div><article id="map-inventory-detail" class="map-inventory-detail" aria-live="polite"><div id="map-inventory-icon" class="map-inventory-icon" aria-hidden="true">◇</div><span id="map-inventory-category"></span><h3 id="map-inventory-name">No items</h3><p id="map-inventory-description">Your field pack is empty.</p><strong id="map-inventory-quantity">Quantity · 0</strong><div id="map-inventory-targets" class="map-inventory-targets" aria-label="Use item on party member"></div><button id="map-inventory-use" class="map-inventory-use" type="button">Use Item</button><p id="map-inventory-status" class="map-inventory-status" role="status"></p><small id="map-inventory-help">Field-usable medicine can be used here. Equipment is managed from the B menu.</small></article></div>
+    <footer><span>Q / E Category · ↑ ↓ Select · Space Use</span><span>B Equipment · Tab / Esc Close</span></footer>
+  </section>
+  <section id="map-equipment" class="map-equipment" role="dialog" aria-modal="true" aria-labelledby="map-equipment-title" hidden>
+    <header>
+      <div><span>Party Loadout</span><h2 id="map-equipment-title">Party Members &amp; Equipment</h2></div>
+      <button id="map-equipment-close" type="button" aria-label="Close equipment">Close <kbd>B</kbd></button>
+    </header>
+    <nav id="map-equipment-party-tabs" class="map-equipment-party-tabs" aria-label="Party member"></nav>
+    <div class="map-equipment-layout">
+      <section>
+        <p class="map-equipment-kicker">Equipped Slots</p>
+        <div id="map-equipment-slots" class="map-equipment-slots" role="listbox" aria-label="Equipment slots"></div>
+      </section>
+      <article class="map-equipment-detail" aria-live="polite">
+        <div class="map-equipment-member-bar"><strong id="map-equipment-member-stats">HP 0 · ATK 0 · DEF 0 · SPD 0 · AP 0</strong><button id="map-equipment-active-toggle" type="button">Move to Reserve</button></div>
+        <span id="map-equipment-slot-label">Body</span>
+        <h3 id="map-equipment-equipped-name">Empty</h3>
+        <p id="map-equipment-description">Select a slot to manage equipment.</p>
+        <button id="map-equipment-unequip" class="map-equipment-unequip" type="button">Unequip</button>
+        <div class="map-equipment-options-header"><strong>Compatible Equipment</strong><small>Owned gear can be safely transferred.</small></div>
+        <div id="map-equipment-options" class="map-equipment-options"></div>
+        <p id="map-equipment-status" class="map-equipment-status" role="status"></p>
+      </article>
+    </div>
+    <footer><span>Q / E Character · ↑ ↓ Slot · Space Equip / Unequip</span><span>B / Esc Close</span></footer>
+  </section>
+  <section id="map-skill-menu" class="map-skill-menu" role="dialog" aria-modal="true" aria-labelledby="map-skill-title" hidden>
+    <header class="map-skill-header">
+      <div class="map-skill-title-mark" aria-hidden="true">✦</div>
+      <div><span>Character Growth</span><h2 id="map-skill-title">Skill Tree</h2><p>Shape each fighter through hard-won combat experience.</p></div>
+      <button id="map-skill-close" type="button" aria-label="Close skill tree">Close <kbd>K</kbd></button>
+    </header>
+    <nav id="map-skill-category-tabs" class="map-skill-category-tabs" aria-label="Skill categories" role="tablist">
+      <button type="button" role="tab" data-skill-category="general" data-selected="true">General</button>
+      <button type="button" role="tab" data-skill-category="classes">Classes</button>
+      <button type="button" role="tab" data-skill-category="class-skills">Class Skills</button>
+      <button type="button" role="tab" data-skill-category="mastery">Mastery</button>
+    </nav>
+    <div class="map-skill-body">
+      <aside class="map-skill-characters">
+        <header><span>Active Party</span><small>Q / E</small></header>
+        <nav id="map-skill-party-tabs" class="map-skill-party-tabs" aria-label="Active party members"></nav>
+      </aside>
+      <section class="map-skill-graph-panel" aria-label="General combat skill tree">
+        <div class="map-skill-graph-heading"><span>General Discipline</span><small>Combat foundation</small></div>
+        <div id="map-skill-tree" class="map-skill-tree" role="group" aria-label="Skills"></div>
+      </section>
+      <aside class="map-skill-detail" aria-live="polite">
+        <div id="map-skill-detail-empty" class="map-skill-detail-empty">Select a skill to inspect its requirements and effect.</div>
+        <div id="map-skill-detail-content" hidden>
+          <span id="map-skill-detail-type" class="map-skill-detail-type">Passive</span>
+          <h3 id="map-skill-detail-name">Skill</h3>
+          <p id="map-skill-detail-description" class="map-skill-detail-description"></p>
+          <dl class="map-skill-requirements">
+            <div><dt>Required Level</dt><dd id="map-skill-detail-level"></dd></div>
+            <div><dt>Prerequisite</dt><dd id="map-skill-detail-prerequisite"></dd></div>
+            <div><dt>Cost</dt><dd id="map-skill-detail-cost"></dd></div>
+            <div><dt>Status</dt><dd id="map-skill-detail-status"></dd></div>
+          </dl>
+          <div class="map-skill-effect"><span>Effect</span><p id="map-skill-detail-effect"></p></div>
+        </div>
+      </aside>
+    </div>
+    <footer class="map-skill-footer">
+      <div class="map-skill-resources"><strong id="map-skill-footer-points">Skill Points: 0</strong><span id="map-skill-footer-level">Lv. 1</span><span id="map-skill-footer-exp">EXP 0 / 40</span></div>
+      <p id="map-skill-status" class="map-skill-status" role="status"></p>
+      <div class="map-skill-controls"><span>Q / E Character</span><span>WASD / Arrows Navigate</span><span>Space Unlock</span><span>K / Esc Close</span></div>
+    </footer>
+  </section>
+  <main id="map-screen" aria-label="Exploration" hidden><section id="map-viewport" class="map-viewport" aria-label="Litania X exploration"><div class="map-weather-layer map-cloud-shadow-layer" aria-hidden="true"></div><div class="map-weather-layer map-mid-fog-layer" aria-hidden="true"></div><div class="map-weather-layer map-ground-mist-layer" aria-hidden="true"></div><div class="map-screen-grain" aria-hidden="true"></div><div class="map-screen-vignette" aria-hidden="true"></div><aside class="map-campaign-hud" aria-live="polite"><strong id="map-campaign-chapter">CHAPTER 1</strong><span id="map-campaign-objective">Use Fulitas Lighting to reveal the mountain path.</span></aside><div id="map-encounter-overlay" class="map-encounter-overlay" aria-hidden="true" hidden><span>ENCOUNTER</span></div><div id="map-node-transition-overlay" class="map-node-transition-overlay" aria-hidden="true" hidden></div><div id="map-interaction-prompt" class="map-interaction-prompt" role="status" hidden><kbd class="space-key" aria-label="Spacebar">␣</kbd><span>Interact</span></div><section id="map-dialogue" class="map-dialogue" aria-live="polite" hidden><strong id="map-dialogue-speaker"></strong><p id="map-dialogue-text"></p><div id="map-dialogue-choices" class="map-dialogue-choices" role="group" aria-label="Dialogue choices"></div><span id="map-dialogue-hint"> SPACE — Continue</span></section><section id="map-shop" class="map-shop" aria-labelledby="map-shop-title" hidden><header><div><span>Apothecary</span><h2 id="map-shop-title">Iven's Remedies</h2></div><p><strong id="map-shop-currency">12</strong> crowns</p></header><div id="map-shop-list" class="map-shop-list" aria-label="Iven's shop inventory"></div><footer><button id="map-shop-close" type="button">Close</button><p id="map-shop-status" role="status"></p></footer></section><section id="vertical-slice-end" class="vertical-slice-end" aria-labelledby="vertical-slice-title" hidden><span>Vertical Slice Complete</span><h1 id="vertical-slice-title">Village Kalin — Immediate Threat Resolved</h1><p>Rafel, Anno, and Gram exposed the Ghoul with salt, used fire to break its resistance, and made Kalin safe for the night.</p><button id="vertical-slice-continue" type="button">Continue Exploring</button><button id="vertical-slice-title-button" type="button">Return to Title</button></section><aside class="map-test-hud" aria-label="Movement controls"><strong id="map-node-name">FRONT FOREST</strong><span>WASD / ARROWS · MOVE</span><span>SPACE / E · INTERACT</span><span>B · INVENTORY / EQUIPMENT</span><span>F2 / G · DEBUG GEOMETRY</span><span>K · SKILLS</span><span id="map-coordinates" class="map-coordinates">X 0 Y 0</span></aside></section></main>
+  <main id="battle-screen" data-battle-state="active" data-turn="player" data-camera-mode="default" hidden><header class="battle-state-header"><section id="turn-indicator" aria-live="polite"><span class="eyebrow">Battle State</span><h2 id="turn-text">PLAYER TURN</h2></section></header><section id="battlefield" aria-label="Battlefield"><div id="battle-camera" class="battle-camera" aria-label="Combatants"><div id="battle-world-background" class="battle-world-background" aria-hidden="true"></div><div id="formation-layer" class="formation-layer"></div><img id="fireball-effect" data-skill-id="fireball" alt="" aria-hidden="true"><img id="icepike-effect" data-skill-id="ice-pike" alt="" aria-hidden="true"><img id="poison-effect" data-skill-id="poison" alt="" aria-hidden="true"><div id="damage-number" aria-hidden="true">0</div></div><div id="battle-hud" class="battle-hud"><div id="party-hud-layer" class="entity-hud-layer" aria-label="Party combat status"></div><div id="enemy-hud-layer" class="entity-hud-layer" aria-label="Enemy combat status"></div><section id="battle-menu" aria-label="Battle command categories" hidden><section id="command-box" aria-label="Action commands"><header id="command-box-header"><button id="previous-command-tab" class="command-tab-arrow" type="button" aria-label="Previous command category" disabled><span aria-hidden="true">◀</span></button><h2 id="command-category-title">Action</h2><button id="next-command-tab" class="command-tab-arrow" type="button" aria-label="Next command category" disabled><span aria-hidden="true">▶</span></button></header><div id="menu-content" class="command-page" role="group" aria-labelledby="command-category-title" aria-live="polite"></div></section></section></div><div id="status-tooltip" role="tooltip" aria-hidden="true" hidden><strong id="status-tooltip-title"></strong><div id="status-tooltip-lines"></div></div><div id="turn-popup" role="status" aria-live="polite" aria-atomic="true" aria-hidden="true"><span id="turn-popup-text">YOUR TURN!</span></div></section><section id="battle-summary" aria-labelledby="battle-summary-title" hidden><div class="battle-summary-panel"><header><span class="eyebrow">Battle Complete</span><h1 id="battle-summary-title">Battle Summary</h1></header><div id="battle-summary-content" aria-label="Battle rewards and results"><p>Results will appear here in a future update.</p></div><button id="battle-summary-next" type="button">Next</button></div></section><aside class="battle-log-frame" aria-label="Battle log"><span class="battle-log-label">Battle Log</span><section id="battle-log" role="log" aria-live="polite" aria-relevant="additions"><p>Battle started.</p></section></aside><div id="battle-intro-overlay" aria-hidden="true" hidden></div></main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
