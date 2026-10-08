@@ -1,0 +1,136 @@
+{
+  "baselineCommit": "8ad4563fa644b1e250221a5fe53dd7c50c1fec5f",
+  "maps": {
+    "town-south": {
+      "enemies": [],
+      "interactables": [
+        {
+          "id": "villager",
+          "name": "Townswoman",
+          "x": 570,
+          "y": 480,
+          "dialogueId": "villager",
+          "type": "npc",
+          "assetId": "town-woman2",
+          "dialoguePortraitAssetId": "town-woman"
+        },
+        {
+          "id": "shop",
+          "name": "Apothecary Iven",
+          "x": 770,
+          "y": 760,
+          "dialogueId": null,
+          "type": "shop"
+        },
+        {
+          "id": "south-door",
+          "name": "Old House",
+          "x": 920,
+          "y": 360,
+          "dialogueId": "laneDoor",
+          "type": "door"
+        }
+      ]
+    },
+    "town-north": {
+      "enemies": [],
+      "interactables": [
+        {
+          "id": "mara",
+          "name": "Mara",
+          "x": 350,
+          "y": 650,
+          "dialogueId": "mara",
+          "type": "npc",
+          "assetId": "town-mara2",
+          "dialoguePortraitAssetId": "town-mara"
+        },
+        {
+          "id": "hall",
+          "name": "Town Hall",
+          "x": 1030,
+          "y": 360,
+          "dialogueId": "laneTownHall",
+          "type": "landmark"
+        }
+      ]
+    },
+    "front-forest": {
+      "enemies": [
+        {
+          "id": "lane-front-guard",
+          "x": 890,
+          "y": 430,
+          "encounterId": "highwayman-patrol",
+          "mode": "static"
+        }
+      ],
+      "interactables": [
+        {
+          "id": "sign",
+          "name": "Road Sign",
+          "x": 720,
+          "y": 400,
+          "dialogueId": "laneSign",
+          "type": "sign"
+        },
+        {
+          "id": "supplies",
+          "name": "Abandoned Chest",
+          "x": 1030,
+          "y": 500,
+          "dialogueId": "laneSupplies",
+          "type": "chest",
+          "onceFlag": "lane-front-supplies",
+          "rewards": {
+            "items": [
+              {
+                "id": "healing-draught",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "deep-forest": {
+      "enemies": [
+        {
+          "id": "lane-deep-patrol",
+          "x": 710,
+          "y": 660,
+          "encounterId": "highwayman-patrol",
+          "mode": "patrol",
+          "patrol": [
+            {
+              "x": 640,
+              "y": 660
+            },
+            {
+              "x": 780,
+              "y": 660
+            }
+          ],
+          "speed": 65
+        },
+        {
+          "id": "lane-deep-guard",
+          "x": 1080,
+          "y": 360,
+          "encounterId": "highwayman-patrol",
+          "mode": "static"
+        }
+      ],
+      "interactables": [
+        {
+          "id": "shrine",
+          "name": "Weathered Shrine",
+          "x": 950,
+          "y": 760,
+          "dialogueId": "deepShrine",
+          "type": "landmark"
+        }
+      ]
+    }
+  }
+}
